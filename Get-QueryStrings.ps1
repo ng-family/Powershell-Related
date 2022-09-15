@@ -22,11 +22,14 @@ function Get-QueryStrings
     $h[($_ -split "=",2 | select -index 0)] = ($_ -split "=",2)| select -index 1
     }
     $h.Keys.Clone() | ForEach-Object { $h[$_] = [System.Web.HttpUtility]::UrlDecode($h[$_]) }
-    $h
-    $selectedkey = Read-Host -Prompt 'Expand which Query?'
-    $h.$selectedkey
-    return
+
+    return $h
 }
 
 #$inputuri | Measure-Object -Character
-Get-QueryStrings $inputuri
+$res = Get-QueryStrings $inputuri
+$res.Keys.Clone() | ForEach-Object {
+    if ($res[$_] -clike 'http*') {
+        Write-Host($res[$_])
+    }
+}
