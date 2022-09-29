@@ -30,6 +30,7 @@ function Get-QueryStrings
 $res = Get-QueryStrings $inputuri
 $res.Keys.Clone() | ForEach-Object {
     if ($res[$_] -clike 'http*') {
-        Write-Host($res[$_])
+        Write-Host ("")
+        Write-Host -ForegroundColor White $res[$_]
     }
 }
